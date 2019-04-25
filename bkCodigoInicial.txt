@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using WpfTwilio;
+
+namespace WpfTwilio
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Contato c = new Contato("Mario Medeiros", "+351962986010");
+            CheckBox1.Content = Contatos[0].toString();
+
+
+
+            List<Contato> Contatos = new List<Contato>();
+            
+            //carregar contatos do disco
+            Contatos.Add(new Contato("Mario Medeiros", "+351455444"));
+            Contatos.Add(new Contato("Rui Almeida", "+351455444"));
+            Contatos.Add(new Contato("Isac Camara", "+351455444"));
+
+            Console.WriteLine(c.Nome);
+
+            
+
+            for (int i = 0; i < Contatos.Count; i++)
+            {
+                CheckBox Check1 = new CheckBox();
+                Check1.Content = Contatos[i].toString();
+                ListaContatos.Items.Add(Check1);
+            }
+
+            try
+            {
+
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+
+
+            /*
+            
+            // Find your Account Sid and Token at twilio.com/console
+            // DANGER! This is insecure. See http://twil.io/secure
+            const string accountSid = "ACaf4cd40e8d8cc1b698d91328a1d";
+            const string authToken = "4db632b3bd1de184ea358df7d";
+
+            TwilioClient.Init(accountSid, authToken);
+
+            var message = MessageResource.Create(
+                body: "This is the ship that made the Kessel Run in fourteen parsecs?",
+                from: new Twilio.Types.PhoneNumber("whatsapp:+14155238886"),
+                to: new Twilio.Types.PhoneNumber("whatsapp:+3519629")
+            );
+
+            Console.WriteLine(message.Sid); 
+            */
+        }
+    }
+}

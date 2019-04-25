@@ -12,21 +12,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
-using WpfTwilio;
+using WpfTwilio.Model;
+using WpfTwilio.Controller;
 
-namespace WpfTwilio
+namespace WpfTwilio.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ContatosListaView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ContatosListaView : UserControl
     {
-        public MainWindow()
+        public ContatosListaView()
         {
+            Controller = new ContatosListaController();
+            DataContext = Controller;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Gets or sets the controller for this view
+        /// </summary>
+        public ContatosListaController Controller { get; private set; }
     }
 }
