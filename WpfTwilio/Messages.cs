@@ -24,6 +24,12 @@ namespace WpfTwilio
         /// Mensagem para notificar que o contato foi selecionado
         /// </summary>
         public const string SelectContato = "selectContato";
+
+        
+        /// <summary>
+        /// Mensagem para notificar para enviar uma mensagem
+        /// </summary>
+        public const string EnviarMensagem = "enviarMensagem";
     }
 }
 

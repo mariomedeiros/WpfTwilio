@@ -31,7 +31,15 @@ namespace WpfTwilio
 
         #endregion
 
+        #region GetAllContatos
 
+        /// <summary>
+        /// O command para enviar uma mensagem.
+        /// </summary>
+        public static RoutedUICommand EnviarMensagem
+            = new RoutedUICommand("Enviar Mensagem", "EnviarMensagem", typeof(Commands));
+
+        #endregion
     }
 }
 
