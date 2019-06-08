@@ -25,7 +25,9 @@ namespace WpfTwilio
         /// </summary>
         public const string SelectContato = "selectContato";
 
-        
+
+        public const string LimparEnvio = "limparEnvio";
+
         /// <summary>
         /// Mensagem para notificar para enviar uma mensagem
         /// </summary>

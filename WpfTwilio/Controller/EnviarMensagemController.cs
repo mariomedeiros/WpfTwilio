@@ -17,9 +17,9 @@ namespace WpfTwilio.Controller
     /// </summary>
     public class EnviarMensagemController: BaseController
     {
-        Contato currentContato;
+        Mensagem currentContato;
 
-        public Contato CurrentContato
+        public Mensagem CurrentContato
         {
             get { return currentContato; }
             set
@@ -41,13 +41,37 @@ namespace WpfTwilio.Controller
             //register to the mediator for the SelectProduct message
             Mediator.Register(this, new[]
             {
-                Messages.SelectContato
+                Messages.SelectContato,
+                Messages.LimparEnvio
             });
 
             //////////////////////////////////////
         }
 
-        #region Command handlers
+        //can execute handler for the CanExecuteEnviarMensagem command
+        void CanExecuteEnviarMensagem(object sender, CanExecuteRoutedEventArgs e)
+        {
+            if (e.Parameter == null)
+                e.CanExecute = false;
+            else
+                e.CanExecute = !String.IsNullOrEmpty(
+                    e.Parameter.ToString());
+        }
+
+        private bool Validado(string msg)
+        {
+            if (currentContato == null)
+                return false;
+            if (String.IsNullOrEmpty(currentContato.Numero))
+                return false;
+            if (String.IsNullOrEmpty(currentContato.Nome))
+                return false;
+            if (String.IsNullOrEmpty(msg))
+                return false;
+
+            return true;
+        }
+
         //execute handler for the SearchProductByName command
         void ExecuteEnviarMensagem(object sender, ExecutedRoutedEventArgs e)
         {
@@ -56,6 +80,15 @@ namespace WpfTwilio.Controller
             Console.WriteLine("Texto: " + msg);
 
             string outMessage = "";
+
+            if (!Validado(msg))
+            {
+                System.Windows.MessageBox.Show("Preencha todos os campos antes de enviar a mensagem.");
+                return;
+            }
+
+
+
 
             try
             {                
@@ -84,6 +117,8 @@ namespace WpfTwilio.Controller
                 Mediator.NotifyColleagues(Messages.AddMensagem, m);
                 
                 outMessage = "Mensagem enviada com sucesso!";
+
+                CurrentContato = null;
             }
             catch (Exception ex)
             {
@@ -94,17 +129,10 @@ namespace WpfTwilio.Controller
             System.Windows.MessageBox.Show(outMessage);          
         }
 
-        //can execute handler for the CanExecuteEnviarMensagem command
-        void CanExecuteEnviarMensagem(object sender, CanExecuteRoutedEventArgs e)
-        {
-            if (e.Parameter == null)
-                e.CanExecute = false;
-            else
-                e.CanExecute = !String.IsNullOrEmpty(
-                    e.Parameter.ToString());
-        }
+       
 
-        #endregion
+
+
 
         /// <summary>
         /// Notification from the Mediator
@@ -117,7 +145,12 @@ namespace WpfTwilio.Controller
             {
                 //change the CurrentProduct to be the newly selected product
                 case Messages.SelectContato:
-                    CurrentContato = (Contato)args;
+                    CurrentContato = new Mensagem
+                    {
+                        Nome = ((Contato)args).Nome,
+                        Numero = ((Contato)args).Numero,
+                        Texto = ""
+                    };
                     break;
             }
         }
