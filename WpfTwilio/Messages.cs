@@ -30,6 +30,18 @@ namespace WpfTwilio
         /// Mensagem para notificar para enviar uma mensagem
         /// </summary>
         public const string EnviarMensagem = "enviarMensagem";
+
+
+        /// <summary>
+        /// Mensagem para notificar para enviar uma mensagem
+        /// </summary>
+        public const string GetAllMensagens = "getAllMensagens";
+
+        /// <summary>
+        /// Mensagem para notificar para enviar uma mensagem
+        /// </summary>
+        public const string SearchByTo = "searchByTo";
+
     }
 }
 

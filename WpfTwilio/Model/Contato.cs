@@ -6,7 +6,7 @@ using System.Text;
 namespace WpfTwilio.Model
 {
     /// <summary>
-    /// Contem os dados de um product
+    /// Contem os dados de um contato
     /// </summary>
     public class Contato
     {

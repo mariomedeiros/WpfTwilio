@@ -12,20 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
-using WpfTwilio;
+using WpfTwilio.Model;
+using WpfTwilio.Controller;
 
-namespace WpfTwilio
+namespace WpfTwilio.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MensagensView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MensagensView : UserControl
     {
-        public MainWindow()
+        public MensagensView()
         {
+            Controller = new MensagensController();
+            DataContext = Controller;
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Gets or sets the controller for this view
+        /// </summary>
+        public MensagensController Controller { get; private set; }
+
     }
 }

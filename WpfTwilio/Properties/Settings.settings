@@ -1,7 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WpfTwilio.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TwilioAccountSid" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ACaf4cd40e45d878d8cc1b698d91328a1d</Value>
+    </Setting>
+    <Setting Name="TwilioAuthToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4db632b3bddbda0221de184ea358df7d</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

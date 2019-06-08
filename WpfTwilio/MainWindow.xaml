@@ -3,17 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfTwilio"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        xmlns:views="clr-namespace:WpfTwilio.View">
-    <DockPanel x:Name="pnlPrincipal" LastChildFill="True">
+    Title="WpfTwilio - Mario Medeiros - 1500077" Height="500" Width="650"
+    xmlns:views="clr-namespace:WpfTwilio.View">
+    <DockPanel LastChildFill="True">
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>Seleciona um contato para enviar uma mensagem</StatusBarItem>
+        </StatusBar>
+
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <views:EnviarMensagemView  HorizontalAlignment="Right"/>
 
-            <views:ContatosListaView Margin="0,0,5,0" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-            <views:EnviarMensagemView Grid.Column="1"/>
+                <views:ContatosListaView Margin="0,0,5,0" />
+                <GridSplitter HorizontalAlignment="Right" Width="5"
+                              Background="Silver"/>
+                <views:MensagensView Grid.Column="1"/>
+
+            </Grid>
 
         </Grid>
+
     </DockPanel>
 </Window>
