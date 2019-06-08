@@ -16,6 +16,9 @@ namespace WpfTwilio.Model
         /// <returns>Retorna uma lista de produtos</returns>
         public static IList<Mensagem> GetAllMensagens()
         {
+            if (Msgs == null)
+                return null;
+
             return Msgs.ToList();
         }
 
@@ -26,7 +29,15 @@ namespace WpfTwilio.Model
         /// <returns>Retorna uma lista de contatos</returns>
         public static void Add(Mensagem Msg)
         {
-            Msgs.Add(Msg);
+            Msgs.Add(new Mensagem
+            {
+                Nome = Msg.Nome,
+                Texto = Msg.Texto,
+                Numero = Msg.Numero,
+                Sid = Msg.Sid,
+                Status = Msg.Status
+            }
+            );
 
 
             /*return (from cont in Msgs
@@ -38,7 +49,7 @@ namespace WpfTwilio.Model
         {
             foreach (var item in Msgs)
             {
-                if (item.TwilioMsg.Sid == sid)
+                if (item.Sid == sid)
                 {
                     return item;
                 }
@@ -54,7 +65,7 @@ namespace WpfTwilio.Model
         {
             foreach (var item in Msgs)
             {
-                if (item.TwilioMsg.Sid == sid)
+                if (item.Sid == sid)
                 {
                     item.Status = status;
                 }
@@ -63,7 +74,8 @@ namespace WpfTwilio.Model
 
         #region Sample Data 
 
-        public static List<Mensagem> Msgs;
+        //public static List<Mensagem> Msgs;
+        static List<Mensagem> Msgs = new List<Mensagem> { };
         /*
         static List<Mensagem> Msgs = new List<Mensagem>
         {

@@ -107,7 +107,7 @@ namespace WpfTwilio.Controller
 
             Console.WriteLine("GetEstadoMensagem: " + m.Texto);
 
-            var mensagem = MensagensDataService.GetMensagemBySid(m.TwilioMsg.Sid);
+            var mensagem = MensagensDataService.GetMensagemBySid(m.Sid);
 
 
             string outMessage = "Mensagem enviada com sucesso!";
@@ -120,11 +120,11 @@ namespace WpfTwilio.Controller
                 );
 
 
-                var messageResp = MessageResource.Fetch(m.TwilioMsg.Sid);
+                var messageResp = MessageResource.Fetch(m.Sid);
 
                 Console.WriteLine("Status = " + messageResp.Status.ToString());
 
-                MensagensDataService.SetStatus(m.TwilioMsg.Sid, messageResp.Status.ToString());
+                MensagensDataService.SetStatus(m.Sid, messageResp.Status.ToString());
             }
             catch (Exception ex)
             {
@@ -132,8 +132,6 @@ namespace WpfTwilio.Controller
                 outMessage = "Error! \n\n" + ex.Message;
                 System.Windows.MessageBox.Show(outMessage);
             }
-
-
           
             GetAllMensagens();
         }

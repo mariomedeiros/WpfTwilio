@@ -77,7 +77,8 @@ namespace WpfTwilio.Controller
                     Nome = currentContato.Nome,
                     Numero = currentContato.Numero,
                     Texto = msg,
-                    TwilioMsg = message
+                    Sid = message.Sid,
+                    Status = message.Status.ToString()
                 };
 
                 Mediator.NotifyColleagues(Messages.AddMensagem, m);

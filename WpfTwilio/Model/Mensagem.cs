@@ -29,28 +29,21 @@ namespace WpfTwilio.Model
 
         public string Sid { get; set; }
 
-        //public string Status { get; set; }
+        public string Status { get; set; }
 
         /// <summary>
         /// Faz o Set ou Get do MessageResource do Contato
         /// </summary>
-        public MessageResource TwilioMsg { get; set; }
+        //public MessageResource TwilioMsg { get; set; }
 
-        public string Status()
-        {
-            if (TwilioMsg != null)
-                return TwilioMsg.Status.ToString();
-            else
-                return "undefined";
 
-        }
 
         /// <summary>
         /// Retorna a representação do Contato em string
         /// </summary>
         override public string ToString()
         {
-            return String.Format("Nome: {0}, Numero: {1}, Texto: {2}, Estado: {3}", Nome, Numero, Texto, Status());
+            return String.Format("Nome: {0}, Numero: {1}, Texto: {2}, Estado: {3}", Nome, Numero, Texto, Status);
         }
     }
 }
