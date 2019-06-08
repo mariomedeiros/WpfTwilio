@@ -27,16 +27,20 @@ namespace WpfTwilio.Model
         /// </summary>
         public string Texto { get; set; }
 
+        public string Sid { get; set; }
+
+        //public string Status { get; set; }
+
         /// <summary>
         /// Faz o Set ou Get do MessageResource do Contato
         /// </summary>
-        //public MessageResource TwilioMsg { get; set; }
+        public MessageResource TwilioMsg { get; set; }
 
         public string Status()
         {
-            /*if (TwilioMsg != null)
+            if (TwilioMsg != null)
                 return TwilioMsg.Status.ToString();
-            else*/
+            else
                 return "undefined";
 
         }

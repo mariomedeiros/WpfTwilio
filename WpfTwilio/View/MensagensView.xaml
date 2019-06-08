@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            <ListView ItemsSource="{Binding Mensagens}">
+        <ListView Name="ListViewMensagens" ItemsSource="{Binding Mensagens}">
                 <ListView.View>
                      <GridView>
                         <GridViewColumn DisplayMemberBinding="{Binding Nome}" Header="Nome"/>

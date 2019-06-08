@@ -57,8 +57,11 @@ namespace WpfTwilio.Controller
         void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Notify that the selected item has changed
-            if (e.AddedItems != null && e.AddedItems.Count > 0)
-                Mediator.NotifyColleagues(Messages.SelectContato, e.AddedItems[0]);
+
+            if (((Control)sender).Name == "ListViewContatos"){
+                if (e.AddedItems != null && e.AddedItems.Count > 0)
+                    Mediator.NotifyColleagues(Messages.SelectContato, e.AddedItems[0]);
+            }
         }
         #endregion
 

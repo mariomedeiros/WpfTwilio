@@ -6,6 +6,8 @@ using System.ComponentModel;
 using WpfTwilio.Model;
 using System.Windows;
 using System.Windows.Controls;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace WpfTwilio.Controller
 {
@@ -40,15 +42,28 @@ namespace WpfTwilio.Controller
             //Registar a procura por nome e obeter todos os contatos
             Mediator.Register(this, new[]
                 {
-                    Messages.SearchByTo,
-                    Messages.GetAllMensagens
+                    Messages.AddMensagem,
+                    Messages.GetAllMensagens,
+                    Messages.GetEstadoMensagem
                 });
+
+            EventManager.RegisterClassHandler(typeof(Control), ListView.SelectionChangedEvent,
+                         (SelectionChangedEventHandler)SelectionChanged);
 
             //Obter toda a lista de contatos por defeito
             GetAllMensagens();
         }
 
+        void SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Notify that the selected item has changed
 
+            if (((Control)sender).Name == "ListViewMensagens")
+            {
+                if (e.AddedItems != null && e.AddedItems.Count > 0)
+                    Mediator.NotifyColleagues(Messages.GetEstadoMensagem, e.AddedItems[0]);
+            }
+        }
 
         /// <summary>
         /// Notification from the Mediator
@@ -59,23 +74,68 @@ namespace WpfTwilio.Controller
         {
             switch (message)
             {
-                case Messages.SearchByTo:
-                    ApplySearchByTo(args.ToString());
+                case Messages.AddMensagem:
+                    AddMensagem((Mensagem)args);
                     break;
 
                 case Messages.GetAllMensagens:
                     GetAllMensagens();
                     break;
+
+                case Messages.GetEstadoMensagem:
+                    GetEstadoMensagem((Mensagem)args);
+                    break;
+                    
             }
         }
+
+
 
         /// <summary>
         /// Applicar a procura do contato por nome
         /// </summary>
         /// <param name="contatoName">O Nome do contato a procurar</param>
-        public void ApplySearchByTo(string to)
+        public void AddMensagem(Mensagem to)
         {
-            Mensagens = MensagensDataService.GetMensagensByTo(to);
+            MensagensDataService.Add(to);
+            GetAllMensagens();
+        }
+
+        public void GetEstadoMensagem(Mensagem m)
+        {
+            //MensagensDataService.Add(to);
+
+            Console.WriteLine("GetEstadoMensagem: " + m.Texto);
+
+            var mensagem = MensagensDataService.GetMensagemBySid(m.TwilioMsg.Sid);
+
+
+            string outMessage = "Mensagem enviada com sucesso!";
+
+            try
+            {
+                TwilioClient.Init(
+                    Properties.Settings.Default.TwilioAccountSid,
+                    Properties.Settings.Default.TwilioAuthToken
+                );
+
+
+                var messageResp = MessageResource.Fetch(m.TwilioMsg.Sid);
+
+                Console.WriteLine("Status = " + messageResp.Status.ToString());
+
+                MensagensDataService.SetStatus(m.TwilioMsg.Sid, messageResp.Status.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                outMessage = "Error! \n\n" + ex.Message;
+                System.Windows.MessageBox.Show(outMessage);
+            }
+
+
+          
+            GetAllMensagens();
         }
 
         /// <summary>

@@ -51,22 +51,18 @@ namespace WpfTwilio.Controller
         //execute handler for the SearchProductByName command
         void ExecuteEnviarMensagem(object sender, ExecutedRoutedEventArgs e)
         {
-            //notify other colleagues that the user wants to search by name. 
-            //Also pass the name to search with, as parameter
-            Mediator.NotifyColleagues(Messages.EnviarMensagem, e.Parameter.ToString());
+            string msg = e.Parameter.ToString();
 
+            Console.WriteLine("Texto: " + msg);
+
+            string outMessage = "Mensagem enviada com sucesso!";
 
             try
-            {
-                string msg = e.Parameter.ToString();
-
-                Console.WriteLine(e.Parameter.ToString());
-
-
-                //TwilioClient.Init(accountSid, authToken);
-
-                TwilioClient.Init(Properties.Settings.Default.TwilioAccountSid, Properties.Settings.Default.TwilioAuthToken);
-
+            {                
+                TwilioClient.Init(
+                    Properties.Settings.Default.TwilioAccountSid, 
+                    Properties.Settings.Default.TwilioAuthToken
+                );
 
                 var message = MessageResource.Create(
                     body: msg,
@@ -74,22 +70,29 @@ namespace WpfTwilio.Controller
                     to: new Twilio.Types.PhoneNumber("whatsapp:+351962986010")
                 );
 
-                Console.WriteLine(message.Sid);
+                Console.WriteLine("Mensagem enviada: " + message.Sid);
 
-                
-                var messageResp = MessageResource.Fetch(message.Sid);
+                Mensagem m = new Mensagem
+                {
+                    Nome = currentContato.Nome,
+                    Numero = currentContato.Numero,
+                    Texto = msg,
+                    TwilioMsg = message
+                };
 
-                Console.WriteLine(messageResp.Status.ToString());
+                Mediator.NotifyColleagues(Messages.AddMensagem, m);
+
+                //var messageResp = MessageResource.Fetch(message.Sid);
+                //Console.WriteLine(messageResp.Status.ToString());
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                outMessage = "Error ao enviar mensagem! \n\n" + ex.Message;
             }
 
 
-
-
-
+            System.Windows.MessageBox.Show(outMessage);
             //throw new System.ArgumentException("Execute Enviar Mensagem", "original");
         }
 

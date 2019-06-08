@@ -24,17 +24,47 @@ namespace WpfTwilio.Model
         /// </summary>
         /// <param name="nome">O Nome do contato a procurar com</param>
         /// <returns>Retorna uma lista de contatos</returns>
-        public static IList<Mensagem> GetMensagensByTo(string to)
+        public static void Add(Mensagem Msg)
         {
-            return (from cont in Msgs
+            Msgs.Add(Msg);
+
+
+            /*return (from cont in Msgs
                     where cont.Numero.Contains(to)
-                    select cont).ToList();
+                    select cont).ToList();*/
+        }
+
+        public static Mensagem GetMensagemBySid(string sid)
+        {
+            foreach (var item in Msgs)
+            {
+                if (item.TwilioMsg.Sid == sid)
+                {
+                    return item;
+                }
+            }
+
+            return null;
+            /*return (from cont in Msgs
+                    where cont.Numero.Contains(to)
+                    select cont).ToList();*/
+        }
+
+        public static void SetStatus(string sid, string status)
+        {
+            foreach (var item in Msgs)
+            {
+                if (item.TwilioMsg.Sid == sid)
+                {
+                    item.Status = status;
+                }
+            }
         }
 
         #region Sample Data 
 
-        //public static List<Mensagem> Msgs;
-
+        public static List<Mensagem> Msgs;
+        /*
         static List<Mensagem> Msgs = new List<Mensagem>
         {
             new Mensagem
@@ -53,7 +83,7 @@ namespace WpfTwilio.Model
                 //TwilioMsg = MessageResource.Create(CreateMessageOptions)
             }
 
-        };
+        };*/
         #endregion
     }
 }

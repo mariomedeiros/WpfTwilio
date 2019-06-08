@@ -40,7 +40,12 @@ namespace WpfTwilio
         /// <summary>
         /// Mensagem para notificar para enviar uma mensagem
         /// </summary>
-        public const string SearchByTo = "searchByTo";
+        public const string AddMensagem = "addMensagem";
+
+        /// <summary>
+        /// Mensagem para notificar para enviar uma mensagem
+        /// </summary>
+        public const string GetEstadoMensagem = "getEstadoMensagem";
 
     }
 }
