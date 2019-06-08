@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Controls;
+using WpfTwilio.Model;
 
 namespace WpfTwilio.Controller
 {
@@ -13,6 +14,19 @@ namespace WpfTwilio.Controller
     /// </summary>
     public class EnviarMensagemController: BaseController
     {
+
+        Contato currentContato;
+
+        public Contato CurrentContato
+        {
+            get { return currentContato; }
+            set
+            {
+                currentContato = value;
+                OnPropertyChanged("CurrentContato");
+            }
+        }
+
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -22,9 +36,6 @@ namespace WpfTwilio.Controller
             CommandManager.RegisterClassCommandBinding(typeof(Control),
                 new CommandBinding(Commands.EnviarMensagem, ExecuteEnviarMensagem, CanExecuteEnviarMensagem));
 
-            //register to the Get all products command
-            CommandManager.RegisterClassCommandBinding(typeof(Control),
-                new CommandBinding(Commands.Enviar, Enviar));
         }
 
         #region Command handlers
@@ -46,12 +57,6 @@ namespace WpfTwilio.Controller
                     e.Parameter.ToString());
         }
 
-        //event handler for the get all products command
-        void Enviar(object sender, ExecutedRoutedEventArgs e)
-        {
-            //pass a message to get all products
-            Mediator.NotifyColleagues(Messages.GetAllProducts, null);
-        }
         #endregion
 
         /// <summary>
@@ -61,6 +66,13 @@ namespace WpfTwilio.Controller
         /// <param name="args">Arguments for the message</param>
         public override void MessageNotification(string message, object args)
         {
+            switch (message)
+            {
+                //change the CurrentProduct to be the newly selected product
+                case Messages.SelectContato:
+                    CurrentContato = (Contato)args;
+                    break;
+            }
         }
     }
 }

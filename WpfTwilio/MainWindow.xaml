@@ -12,6 +12,8 @@
 
             <views:ContatosListaView Margin="0,0,5,0" />
 
+            <views:EnviarMensagemView Grid.Column="1"/>
+
         </Grid>
     </DockPanel>
 </Window>

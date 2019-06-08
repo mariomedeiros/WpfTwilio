@@ -12,17 +12,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfTwilio.Model;
+using WpfTwilio.Controller;
 
 namespace WpfTwilio.View
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for EnviarMensagemView.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class EnviarMensagemView : UserControl
     {
-        public UserControl1()
+        public EnviarMensagemView()
         {
+            Controller = new EnviarMensagemController();
+            DataContext = Controller;
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Gets or sets the controller for this view
+        /// </summary>
+        public EnviarMensagemController Controller { get; private set; }
     }
 }
