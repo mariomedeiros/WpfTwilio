@@ -105,6 +105,8 @@ namespace WpfTwilio.Controller
         {
             //MensagensDataService.Add(to);
 
+
+
             Console.WriteLine("GetEstadoMensagem: " + m.Texto);
 
             var mensagem = MensagensDataService.GetMensagemBySid(m.Sid);

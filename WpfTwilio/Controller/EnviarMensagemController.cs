@@ -75,6 +75,9 @@ namespace WpfTwilio.Controller
         //execute handler for the SearchProductByName command
         void ExecuteEnviarMensagem(object sender, ExecutedRoutedEventArgs e)
         {
+            Mediator.NotifyColleagues(Messages.LogAdd, "nova mensagem");
+
+
             string msg = e.Parameter.ToString();
 
             Console.WriteLine("Texto: " + msg);

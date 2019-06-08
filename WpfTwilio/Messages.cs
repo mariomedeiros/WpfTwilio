@@ -49,6 +49,8 @@ namespace WpfTwilio
         /// </summary>
         public const string GetEstadoMensagem = "getEstadoMensagem";
 
+        public const string LogAdd = "logAdd";
+
     }
 }
 
