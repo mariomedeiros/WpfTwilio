@@ -75,7 +75,7 @@ namespace WpfTwilio.Controller
         //execute handler for the SearchProductByName command
         void ExecuteEnviarMensagem(object sender, ExecutedRoutedEventArgs e)
         {
-            Mediator.NotifyColleagues(Messages.LogAdd, "nova mensagem");
+            
 
 
             string msg = e.Parameter.ToString();
@@ -86,11 +86,12 @@ namespace WpfTwilio.Controller
 
             if (!Validado(msg))
             {
+                LogErro("Dados invalidos!");
                 System.Windows.MessageBox.Show("Preencha todos os campos antes de enviar a mensagem.");
                 return;
             }
 
-
+            LogInfo("Enviando Mensagem...");
 
 
             try
@@ -121,15 +122,17 @@ namespace WpfTwilio.Controller
                 
                 outMessage = "Mensagem enviada com sucesso!";
 
+                LogInfo("Mensagem enviada com sucesso! sid: " + message.Sid);
+
                 CurrentContato = null;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                LogErro("Envio Falhou! " + ex.Message);
                 outMessage = "Error ao enviar mensagem! \n\n" + ex.Message;
             }
 
-            System.Windows.MessageBox.Show(outMessage);          
+            //System.Windows.MessageBox.Show(outMessage);          
         }
 
        

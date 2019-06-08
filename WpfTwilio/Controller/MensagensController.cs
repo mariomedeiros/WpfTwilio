@@ -104,7 +104,7 @@ namespace WpfTwilio.Controller
         public void GetEstadoMensagem(Mensagem m)
         {
             //MensagensDataService.Add(to);
-
+            LogInfo("Estado? sid: " + m.Sid);
 
 
             Console.WriteLine("GetEstadoMensagem: " + m.Texto);
@@ -127,12 +127,15 @@ namespace WpfTwilio.Controller
                 Console.WriteLine("Status = " + messageResp.Status.ToString());
 
                 MensagensDataService.SetStatus(m.Sid, messageResp.Status.ToString());
+
+                LogInfo("Estado = " + messageResp.Status.ToString() + " sid: " + m.Sid);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 outMessage = "Error! \n\n" + ex.Message;
-                System.Windows.MessageBox.Show(outMessage);
+                LogErro("Error! " + ex.Message);
+                //System.Windows.MessageBox.Show(outMessage);
             }
           
             GetAllMensagens();

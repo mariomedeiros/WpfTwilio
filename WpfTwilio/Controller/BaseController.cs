@@ -59,6 +59,21 @@ namespace WpfTwilio.Controller
             //set the mediator to be the same one for every controller.
             Mediator = mediatorInstance;
         }
+
+        public void LogInfo(string msg)
+        {
+            Mediator.NotifyColleagues(Messages.LogAdd, "[INFO] " + msg);
+        }
+
+        public void LogErro(string msg)
+        {
+            Mediator.NotifyColleagues(Messages.LogAdd, "[ERRO] " + msg);
+        }
+
+        public void LogDebug(string msg)
+        {
+            Mediator.NotifyColleagues(Messages.LogAdd, "[DEGU] " + msg);
+        }
     }
 }
 
