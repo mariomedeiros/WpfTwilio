@@ -10,6 +10,12 @@ namespace WpfTwilio.Model
 {
     public class MensagensDataService
     {
+
+        /// <summary>
+        /// Lista em memória de todos as mensagens enviadas
+        /// </summary>
+        static List<Mensagem> Msgs = new List<Mensagem> { };
+
         /// <summary>
         /// Obtem a lista completa de Contatos
         /// </summary>
@@ -29,20 +35,7 @@ namespace WpfTwilio.Model
         /// <returns>Retorna uma lista de contatos</returns>
         public static void Add(Mensagem Msg)
         {
-            Msgs.Add(new Mensagem
-            {
-                Nome = Msg.Nome,
-                Texto = Msg.Texto,
-                Numero = Msg.Numero,
-                Sid = Msg.Sid,
-                Status = Msg.Status
-            }
-            );
-
-
-            /*return (from cont in Msgs
-                    where cont.Numero.Contains(to)
-                    select cont).ToList();*/
+            Msgs.Add(Msg);
         }
 
         public static Mensagem GetMensagemBySid(string sid)
@@ -56,9 +49,6 @@ namespace WpfTwilio.Model
             }
 
             return null;
-            /*return (from cont in Msgs
-                    where cont.Numero.Contains(to)
-                    select cont).ToList();*/
         }
 
         public static void SetStatus(string sid, string status)
@@ -72,30 +62,6 @@ namespace WpfTwilio.Model
             }
         }
 
-        #region Sample Data 
-
-        //public static List<Mensagem> Msgs;
-        static List<Mensagem> Msgs = new List<Mensagem> { };
-        /*
-        static List<Mensagem> Msgs = new List<Mensagem>
-        {
-            new Mensagem
-            {
-                Nome = "Mario Medeiros",
-                Numero = "+351962986010",
-                Texto = "Mensagem de text 1"//,
-                //TwilioMsg = MessageResource.Create(CreateMessageOptions)
-            },
-
-            new Mensagem
-            {
-                Nome = "Mario Medeiros",
-                Numero = "+351962986010",
-                Texto = "Mensagem de text 2"//,
-                //TwilioMsg = MessageResource.Create(CreateMessageOptions)
-            }
-
-        };*/
-        #endregion
+       
     }
 }

@@ -43,13 +43,13 @@ namespace WpfTwilio.Model
             new Contato
             {
                 Nome = "Isac Medeiros",
-                Numero = "+351962986011"
+                Numero = "+351962986010"
             },
 
             new Contato
             {
                 Nome = "Rui Almeida",
-                Numero = "+351962986012"
+                Numero = "+351962986010"
             }
 
         };

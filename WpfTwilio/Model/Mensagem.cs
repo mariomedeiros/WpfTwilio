@@ -27,16 +27,15 @@ namespace WpfTwilio.Model
         /// </summary>
         public string Texto { get; set; }
 
+        /// <summary>
+        /// Faz o Set ou Get do Numero do Contato
+        /// </summary>
         public string Sid { get; set; }
 
-        public string Status { get; set; }
-
         /// <summary>
-        /// Faz o Set ou Get do MessageResource do Contato
+        /// Faz o Set ou Get do Numero do Contato
         /// </summary>
-        //public MessageResource TwilioMsg { get; set; }
-
-
+        public string Status { get; set; }
 
         /// <summary>
         /// Retorna a representação do Contato em string

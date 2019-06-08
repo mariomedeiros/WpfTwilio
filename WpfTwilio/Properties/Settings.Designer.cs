@@ -46,5 +46,17 @@ namespace WpfTwilio.Properties {
                 this["TwilioAuthToken"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("whatsapp:+14155238886")]
+        public string TwilioSourceNumber {
+            get {
+                return ((string)(this["TwilioSourceNumber"]));
+            }
+            set {
+                this["TwilioSourceNumber"] = value;
+            }
+        }
     }
 }

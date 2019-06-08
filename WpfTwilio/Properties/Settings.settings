@@ -8,5 +8,8 @@
     <Setting Name="TwilioAuthToken" Type="System.String" Scope="User">
       <Value Profile="(Default)">4db632b3bddbda0221de184ea358df7d</Value>
     </Setting>
+    <Setting Name="TwilioSourceNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)">whatsapp:+14155238886</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

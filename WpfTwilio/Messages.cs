@@ -11,12 +11,12 @@ namespace WpfTwilio
     public static class Messages
     {
         /// <summary>
-        /// Mensagem para notificar que todos os produtos devem ser retornados
+        /// Notificar que todos os produtos devem ser retornados
         /// </summary>
         public const string GetAllContatos = "getAll";
 
         /// <summary>
-        /// Mensagem para notificar que a procura deve ser feita pelo Nome
+        /// Notificar que a procura deve ser feita pelo Nome
         /// </summary>
         public const string SearchByNome = "searchByNome";
 

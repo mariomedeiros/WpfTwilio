@@ -55,7 +55,7 @@ namespace WpfTwilio.Controller
 
             Console.WriteLine("Texto: " + msg);
 
-            string outMessage = "Mensagem enviada com sucesso!";
+            string outMessage = "";
 
             try
             {                
@@ -66,8 +66,8 @@ namespace WpfTwilio.Controller
 
                 var message = MessageResource.Create(
                     body: msg,
-                    from: new Twilio.Types.PhoneNumber("whatsapp:+14155238886"),
-                    to: new Twilio.Types.PhoneNumber("whatsapp:+351962986010")
+                    from: new Twilio.Types.PhoneNumber(Properties.Settings.Default.TwilioSourceNumber),
+                    to: new Twilio.Types.PhoneNumber("whatsapp:"+ currentContato.Numero)
                 );
 
                 Console.WriteLine("Mensagem enviada: " + message.Sid);
@@ -82,9 +82,8 @@ namespace WpfTwilio.Controller
                 };
 
                 Mediator.NotifyColleagues(Messages.AddMensagem, m);
-
-                //var messageResp = MessageResource.Fetch(message.Sid);
-                //Console.WriteLine(messageResp.Status.ToString());
+                
+                outMessage = "Mensagem enviada com sucesso!";
             }
             catch (Exception ex)
             {
@@ -92,9 +91,7 @@ namespace WpfTwilio.Controller
                 outMessage = "Error ao enviar mensagem! \n\n" + ex.Message;
             }
 
-
-            System.Windows.MessageBox.Show(outMessage);
-            //throw new System.ArgumentException("Execute Enviar Mensagem", "original");
+            System.Windows.MessageBox.Show(outMessage);          
         }
 
         //can execute handler for the CanExecuteEnviarMensagem command
