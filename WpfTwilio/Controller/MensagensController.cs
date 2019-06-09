@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
 using WpfTwilio.Model;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,15 +9,15 @@ using Twilio.Rest.Api.V2010.Account;
 namespace WpfTwilio.Controller
 {
     /// <summary>
-    /// Controller para fornecer a lista de contatos
+    /// Controller para fornecer a lista de Mensagens enviadas e o seu estado
     /// </summary>
     public class MensagensController : BaseController
     {
-        #region Properties
-
         private IList<Model.Mensagem> mensagens;
+       
+        
         /// <summary>
-        /// Obtem uma lista de contatos para que seja usado pela View
+        /// Obtem uma lista de Mensagens para que seja usado pela View
         /// </summary>
         public IList<Model.Mensagem> Mensagens
         {
@@ -28,11 +25,11 @@ namespace WpfTwilio.Controller
             private set
             {
                 mensagens = value;
-                //Notificar que a lista de protudos foi atualizada
+                //Notificar que a lista de mensagens foi atualizada
                 OnPropertyChanged("Mensagens");
             }
         }
-        #endregion
+
 
         /// <summary>
         /// Default constructor
@@ -47,6 +44,7 @@ namespace WpfTwilio.Controller
                     Messages.GetEstadoMensagem
                 });
 
+            //Register quando o ListView é selecionada para depois colocar pedir o estado dessa mensagem ao Twilio
             EventManager.RegisterClassHandler(typeof(Control), ListView.SelectionChangedEvent,
                          (SelectionChangedEventHandler)SelectionChanged);
 
@@ -54,10 +52,13 @@ namespace WpfTwilio.Controller
             GetAllMensagens();
         }
 
+
+        /// <summary>
+        /// Event handler para quando é selecionado uma mensagem
+        /// </summary>
         void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Notify that the selected item has changed
-
+            //quando uma mensagem é selecionada, despoletar obter o estado da mensagem
             if (((Control)sender).Name == "ListViewMensagens")
             {
                 if (e.AddedItems != null && e.AddedItems.Count > 0)
@@ -65,11 +66,10 @@ namespace WpfTwilio.Controller
             }
         }
 
+
         /// <summary>
-        /// Notification from the Mediator
+        /// Receber Notificação do mediador
         /// </summary>
-        /// <param name="message">The message type</param>
-        /// <param name="args">Arguments for the message</param>
         public override void MessageNotification(string message, object args)
         {
             switch (message)
@@ -84,65 +84,56 @@ namespace WpfTwilio.Controller
 
                 case Messages.GetEstadoMensagem:
                     GetEstadoMensagem((Mensagem)args);
-                    break;
-                    
+                    break;                    
             }
         }
 
 
-
         /// <summary>
-        /// Applicar a procura do contato por nome
+        /// Adicionar nova mensagem
         /// </summary>
-        /// <param name="contatoName">O Nome do contato a procurar</param>
         public void AddMensagem(Mensagem to)
         {
             MensagensDataService.Add(to);
             GetAllMensagens();
         }
 
+
+        /// <summary>
+        /// Pedir estado da mensagem ao serviço twilio (sent, queued, etc)
+        /// </summary>
         public void GetEstadoMensagem(Mensagem m)
         {
-            //MensagensDataService.Add(to);
-            LogInfo("Estado? sid: " + m.Sid);
-
-
-            Console.WriteLine("GetEstadoMensagem: " + m.Texto);
-
-            var mensagem = MensagensDataService.GetMensagemBySid(m.Sid);
-
-
-            string outMessage = "Mensagem enviada com sucesso!";
+            LogInfo("Obter estado da mensagem... sid: " + m.Sid);
 
             try
             {
+                //Inicializar detalhes da conta no Twilio
                 TwilioClient.Init(
                     Properties.Settings.Default.TwilioAccountSid,
                     Properties.Settings.Default.TwilioAuthToken
                 );
 
+                //Chamar recurso no twilio para obter o estado da mensagem completa
+                var messageResp = MessageResource.Fetch(m.Sid);               
 
-                var messageResp = MessageResource.Fetch(m.Sid);
-
-                Console.WriteLine("Status = " + messageResp.Status.ToString());
-
+                //actualizar a mensagem no modelo de dados
                 MensagensDataService.SetStatus(m.Sid, messageResp.Status.ToString());
 
                 LogInfo("Estado = " + messageResp.Status.ToString() + " sid: " + m.Sid);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                outMessage = "Error! \n\n" + ex.Message;
-                LogErro("Error! " + ex.Message);
-                //System.Windows.MessageBox.Show(outMessage);
+                LogErro("Erro ao tentar obter o estado da mensagem! " + ex.Message);                
             }
-          
+            
+            //actualizar dados do controlador
             GetAllMensagens();
         }
 
+
         /// <summary>
-        /// Obter todos os produtos
+        /// Obter todas as mensagens
         /// </summary>
         public void GetAllMensagens()
         {

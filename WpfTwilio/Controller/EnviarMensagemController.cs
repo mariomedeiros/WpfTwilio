@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Controls;
 using WpfTwilio.Model;
@@ -11,10 +7,6 @@ using Twilio.Rest.Api.V2010.Account;
 
 namespace WpfTwilio.Controller
 {
-    
-    /// <summary>
-    /// Controller para enviar mensagens
-    /// </summary>
     public class EnviarMensagemController: BaseController
     {
         Mensagem currentContato;
@@ -34,11 +26,9 @@ namespace WpfTwilio.Controller
         /// </summary>
         public EnviarMensagemController()
         {
-            //register the search product by name command
             CommandManager.RegisterClassCommandBinding(typeof(Control),
                 new CommandBinding(Commands.EnviarMensagem, ExecuteEnviarMensagem, CanExecuteEnviarMensagem));
             
-            //register to the mediator for the SelectProduct message
             Mediator.Register(this, new[]
             {
                 Messages.SelectContato
@@ -53,8 +43,7 @@ namespace WpfTwilio.Controller
             if (e.Parameter == null)
                 e.CanExecute = false;
             else
-                e.CanExecute = !String.IsNullOrEmpty(
-                    e.Parameter.ToString());
+                e.CanExecute = !String.IsNullOrEmpty(e.Parameter.ToString());
         }
 
         private bool Validado(string msg)
@@ -71,17 +60,15 @@ namespace WpfTwilio.Controller
             return true;
         }
 
-        //execute handler for the SearchProductByName command
+        /// <summary>
+        /// Enviar mensagem para o serviço Twilio
+        /// </summary>
         void ExecuteEnviarMensagem(object sender, ExecutedRoutedEventArgs e)
         {
-            
-
-
+           
             string msg = e.Parameter.ToString();
 
             Console.WriteLine("Texto: " + msg);
-
-            string outMessage = "";
 
             if (!Validado(msg))
             {
@@ -90,24 +77,26 @@ namespace WpfTwilio.Controller
                 return;
             }
 
-            LogInfo("Enviando Mensagem...");
-
-
+            LogInfo("Enviando Mensagem... '" + msg + "'");
+            
             try
-            {                
+            {
+                //Inicializar detalhes da conta no Twilio
                 TwilioClient.Init(
                     Properties.Settings.Default.TwilioAccountSid, 
                     Properties.Settings.Default.TwilioAuthToken
                 );
 
+                //Chamar recurso no twilio para Criar a nova mensagem e enviar
                 var message = MessageResource.Create(
                     body: msg,
                     from: new Twilio.Types.PhoneNumber(Properties.Settings.Default.TwilioSourceNumber),
                     to: new Twilio.Types.PhoneNumber("whatsapp:"+ currentContato.Numero)
                 );
 
-                Console.WriteLine("Mensagem enviada: " + message.Sid);
+                LogInfo("Mensagem enviada com sucesso! sid: " + message.Sid);
 
+                // adicionar nova mensagem à lista depois de enviada
                 Mensagem m = new Mensagem
                 {
                     Nome = currentContato.Nome,
@@ -118,37 +107,25 @@ namespace WpfTwilio.Controller
                 };
 
                 Mediator.NotifyColleagues(Messages.AddMensagem, m);
-                
-                outMessage = "Mensagem enviada com sucesso!";
 
-                LogInfo("Mensagem enviada com sucesso! sid: " + message.Sid);
+                LogInfo("Mensagem adicionada à lista de mensagens! sid: " + message.Sid);
 
                 CurrentContato = null;
             }
             catch (Exception ex)
             {
-                LogErro("Envio Falhou! " + ex.Message);
-                outMessage = "Error ao enviar mensagem! \n\n" + ex.Message;
-            }
-
-            //System.Windows.MessageBox.Show(outMessage);          
+                LogErro("Envio da mensagem Falhou! " + ex.Message);
+            }    
         }
-
-       
-
-
 
 
         /// <summary>
-        /// Notification from the Mediator
+        /// Receber Notificação do mediador
         /// </summary>
-        /// <param name="message">The message type</param>
-        /// <param name="args">Arguments for the message</param>
         public override void MessageNotification(string message, object args)
         {
             switch (message)
-            {
-                //change the CurrentProduct to be the newly selected product
+            {                
                 case Messages.SelectContato:
                     CurrentContato = new Mensagem
                     {

@@ -13,7 +13,6 @@
             <TextBox Text="{Binding CurrentContato.Texto}"  MinWidth="100" Name="mensagem" Margin="10,0,10,0" Width="314" />
             <Button Content="Enviar" Command="local:Commands.EnviarMensagem" 
                 CommandParameter="{Binding ElementName=mensagem, Path=Text}" Margin="10,0,10,0" Width="53" />
-            
         </WrapPanel>
     </Border>
 </UserControl>

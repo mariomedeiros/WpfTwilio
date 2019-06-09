@@ -7,72 +7,65 @@ using System.ComponentModel;
 namespace WpfTwilio.Controller
 {
     /// <summary>
-    /// Base class for all controllers
+    /// Classe base para todos os controladores
     /// </summary>
     public abstract class BaseController : INotifyPropertyChanged, IColleague
-    {
-        #region Data members
+    {       
         static Mediator mediatorInstance = new Mediator();
-        #endregion
-
-        #region INotifyPropertyChanged Members
+     
 
         /// <summary>
-        /// Event raised to notify that a property has changed
+        /// Despoletar um evento quando uma propriedade muda
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+
         /// <summary>
-        /// Raises the PropertyChanged event
+        /// Despoletar um evento do tipo PropertyChanged quando uma propriedade muda
         /// </summary>
-        /// <param name="propertyName">The property name</param>
         protected void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        #endregion
-
-
-        #region IColleague Members
-
+        
         /// <summary>
         /// Gets the mediator for this controller
         /// </summary>
         public Mediator Mediator { get; private set; }
 
+
         /// <summary>
-        /// Notification from the Mediator
+        /// Receber Notificação do mediador base para ser re-escrita nos descendentes
         /// </summary>
-        /// <param name="message">The message type</param>
-        /// <param name="args">Arguments for the message</param>
         public abstract void MessageNotification(string message, object args);
 
-        #endregion
 
         /// <summary>
         /// Default constructor
         /// </summary>
         public BaseController()
-        {
-            //set the mediator to be the same one for every controller.
+        {            
             Mediator = mediatorInstance;
         }
 
+
+        /// <summary>
+        /// Rotina de log de Informação comum a todos os controladores descendentes
+        /// </summary>
         public void LogInfo(string msg)
         {
             Mediator.NotifyColleagues(Messages.LogAdd, "[INFO] " + msg);
         }
 
+
+        /// <summary>
+        /// Rotina de log de Erro comum a todos os controladores descendentes
+        /// </summary>
         public void LogErro(string msg)
         {
             Mediator.NotifyColleagues(Messages.LogAdd, "[ERRO] " + msg);
-        }
-
-        public void LogDebug(string msg)
-        {
-            Mediator.NotifyColleagues(Messages.LogAdd, "[DEGU] " + msg);
         }
     }
 }

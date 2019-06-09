@@ -6,21 +6,15 @@
     Title="WpfTwilio - Mario Medeiros - 1500077" Height="500" Width="1050"
     xmlns:views="clr-namespace:WpfTwilio.View">
     <DockPanel LastChildFill="True">
-
         <StatusBar DockPanel.Dock="Top">
-            <StatusBarItem>Selecione um contato para enviar uma mensagem</StatusBarItem>
+            <StatusBarItem>Selecione um contato para enviar uma mensagem:</StatusBarItem>
         </StatusBar>
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
-            
-            
-            
-            
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -30,23 +24,18 @@
                 <GridSplitter HorizontalAlignment="Right" Width="5" Background="Silver"/>
                 <views:MensagensView Grid.Column="1"/>
             </Grid>
-
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <views:EnviarMensagemView  HorizontalAlignment="Left"/>
             </Grid>
-
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <views:LogView  HorizontalAlignment="Right" Width="1032"/>
             </Grid>
-
-
-
         </Grid>
     </DockPanel>
 </Window>

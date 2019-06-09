@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using WpfTwilio.Model;
 
 namespace WpfTwilio.Controller
 {
-    /// <summary>
-    /// Logs
-    /// </summary>
     public class LogController : BaseController
     {
-        #region Properties
-
         private IList<Log> logsLista;
+
+        
         /// <summary>
-        /// Obtem uma lista de contatos para que seja usado pela View
+        /// Obtem uma lista de logs para que seja usado pela View
         /// </summary>
         public IList<Log> LogsLista
         {
@@ -24,11 +17,11 @@ namespace WpfTwilio.Controller
             private set
             {
                 logsLista = value;
-                //Notificar que a lista de protudos foi atualizada
+                //Notificar que a lista de logs foi atualizada
                 OnPropertyChanged("LogsLista");
             }
         }
-        #endregion
+
 
         /// <summary>
         /// Default constructor
@@ -41,16 +34,14 @@ namespace WpfTwilio.Controller
                     Messages.LogAdd
                 });
 
-            //Obter toda a lista de contatos por defeito
+            //Obter toda a lista de logs por defeito
             GetAllLogs();
         }
 
 
         /// <summary>
-        /// Notification from the Mediator
+        /// Receber Notificação do mediador
         /// </summary>
-        /// <param name="message">The message type</param>
-        /// <param name="args">Arguments for the message</param>
         public override void MessageNotification(string message, object args)
         {
             switch (message)
@@ -61,17 +52,19 @@ namespace WpfTwilio.Controller
             }
         }
 
+
         /// <summary>
-        /// Applicar a procura do contato por nome
+        /// Applicar uma nova mensagem de log
         /// </summary>
-        /// <param name="contatoName">O Nome do contato a procurar</param>
         public void Add(string msg)
         {
+            //Adicionar e atualizar os dados locais com os dados dos logs
             LogsLista = LogDataService.Add(msg);
         }
 
+
         /// <summary>
-        /// Obter todos os produtos
+        /// Obter todos os logs
         /// </summary>
         public void GetAllLogs()
         {

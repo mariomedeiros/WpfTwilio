@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Twilio;
-using Twilio.Rest.Api.V2010.Account;
+
 
 namespace WpfTwilio.Model
 {
     public class MensagensDataService
     {
-
         /// <summary>
         /// Lista em memória de todos as mensagens enviadas
         /// </summary>
-        static List<Mensagem> Msgs = new List<Mensagem> { };
+        static List<Mensagem> Msgs = new List<Mensagem> {};
+
 
         /// <summary>
-        /// Obtem a lista completa de Contatos
-        /// </summary>
-        /// <returns>Retorna uma lista de produtos</returns>
+        /// Obtem a lista completa de mensagens
+        /// </summary>        
         public static IList<Mensagem> GetAllMensagens()
         {
             if (Msgs == null)
@@ -28,29 +23,19 @@ namespace WpfTwilio.Model
             return Msgs.ToList();
         }
 
+        
         /// <summary>
-        /// Obtem uma lista de Contatos a partir do filtro Nome
+        /// Adicona uma nova mensagem na lista depois de enviada
         /// </summary>
-        /// <param name="nome">O Nome do contato a procurar com</param>
-        /// <returns>Retorna uma lista de contatos</returns>
         public static void Add(Mensagem Msg)
         {
             Msgs.Add(Msg);
         }
 
-        public static Mensagem GetMensagemBySid(string sid)
-        {
-            foreach (var item in Msgs)
-            {
-                if (item.Sid == sid)
-                {
-                    return item;
-                }
-            }
 
-            return null;
-        }
-
+        /// <summary>
+        /// Actualiza o estado na mensagem baseado no sid
+        /// </summary>
         public static void SetStatus(string sid, string status)
         {
             foreach (var item in Msgs)
@@ -60,8 +45,6 @@ namespace WpfTwilio.Model
                     item.Status = status;
                 }
             }
-        }
-
-       
+        }       
     }
 }

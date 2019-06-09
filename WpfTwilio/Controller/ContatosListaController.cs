@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
 using WpfTwilio.Model;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace WpfTwilio.Controller
 {
-    /// <summary>
-    /// Controller para fornecer a lista de contatos
-    /// </summary>
     public class ContatosListaController : BaseController
     {
-        #region Properties
-
         private IList<Model.Contato> contatosLista;
+        
+
         /// <summary>
         /// Obtem uma lista de contatos para que seja usado pela View
         /// </summary>
@@ -30,7 +24,7 @@ namespace WpfTwilio.Controller
                 OnPropertyChanged("ContatosLista");
             }
         }
-        #endregion
+
 
         /// <summary>
         /// Construtor
@@ -51,7 +45,9 @@ namespace WpfTwilio.Controller
         }
 
 
-        //event handler for the selection changed
+        /// <summary>
+        /// Event handler para quando é selecionado um contato
+        /// </summary>
         void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Quando o contato é selecionado, a mensagem do tipo SelectContato é enviada para as vistas que estão à escuta
@@ -63,21 +59,17 @@ namespace WpfTwilio.Controller
 
 
         /// <summary>
-        /// Notification from the Mediator
+        /// Receber Notificação do mediador
         /// </summary>
-        /// <param name="message">The message type</param>
-        /// <param name="args">Arguments for the message</param>
         public override void MessageNotification(string message, object args)
         {
             switch (message)
             {
-
                 case Messages.GetAllContatos:
                     GetAllContatos();
                     break;
             }
         }
-
 
 
         /// <summary>

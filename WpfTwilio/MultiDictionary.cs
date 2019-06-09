@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace WpfTwilio
 {
@@ -10,10 +8,8 @@ namespace WpfTwilio
     /// </summary>
     /// <typeparam name="T">The type of the key</typeparam>
     /// <typeparam name="K">The type of the list contents</typeparam>
-    public class MultiDictionary<T, K>
-        : Dictionary<T, List<K>>
+    public class MultiDictionary<T, K> : Dictionary<T, List<K>>
     {
-
         //checks if the key is already present
         private void EnsureKey(T key)
         {
@@ -27,6 +23,7 @@ namespace WpfTwilio
                     this[key] = new List<K>(1);
             }
         }
+
 
         /// <summary>
         /// Adds a new value in the Values collection
@@ -51,6 +48,7 @@ namespace WpfTwilio
             this[key].AddRange(newItems);
         }
 
+
         /// <summary>
         /// Removes a specific element from the dict
         /// If the value list is empty the key is removed from the dict
@@ -70,6 +68,7 @@ namespace WpfTwilio
 
             return true;
         }
+
 
         /// <summary>
         /// Removes all items that match the prediacte

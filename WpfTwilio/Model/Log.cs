@@ -6,7 +6,7 @@ using System.Text;
 namespace WpfTwilio.Model
 {
     /// <summary>
-    /// Contem os dados de uma entrade de log
+    /// Contem os dados de uma entrada de log
     /// </summary>
     public class Log
     {
@@ -16,12 +16,12 @@ namespace WpfTwilio.Model
         public DateTime DataHora { get; set; }
 
         /// <summary>
-        /// Faz o Set ou Get da mensagem
+        /// Faz o Set ou Get da mensagem de log
         /// </summary>
         public string Msg { get; set; }
 
         /// <summary>
-        /// Retorna a representação do Contato em string
+        /// Retorna a representação do log em string
         /// </summary>
         override public string ToString()
         {

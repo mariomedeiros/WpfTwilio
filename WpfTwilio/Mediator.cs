@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace WpfTwilio
 {
@@ -10,11 +7,9 @@ namespace WpfTwilio
     /// </summary>
     public class Mediator
     {
-        #region Data members
-        MultiDictionary<string, IColleague> internalList
-            = new MultiDictionary<string, IColleague>();
-        #endregion
-
+        
+        MultiDictionary<string, IColleague> internalList = new MultiDictionary<string, IColleague>();
+        
         /// <summary>
         /// Registers a Colleague to a specific message
         /// </summary>
