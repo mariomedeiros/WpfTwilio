@@ -3,7 +3,4 @@
 
 ## Descrição do projeto
 
-Criar e manter uma lista de contactos que são guardados em JSON enviar mensagens para esses contactos todos de uma só vez.
-
-
-
+Usar a API Twilio para enviar mensagens para a aplicação WhatsApp usando números guardados numa lista de contatos.
