@@ -19,19 +19,7 @@ namespace WpfTwilio.Model
             return sampleData.ToList();
         }
 
-        /// <summary>
-        /// Obtem uma lista de Contatos a partir do filtro Nome
-        /// </summary>
-        /// <param name="nome">O Nome do contato a procurar com</param>
-        /// <returns>Retorna uma lista de contatos</returns>
-        public static IList<Contato> GetContatosByNome(string nome)
-        {
-            return (from cont in sampleData
-                    where cont.Nome.Contains(nome)
-                    select cont).ToList();
-        }
 
-        #region Sample Data 
         static List<Contato> sampleData = new List<Contato>
         {
             new Contato
@@ -50,9 +38,27 @@ namespace WpfTwilio.Model
             {
                 Nome = "Rui Almeida",
                 Numero = "+351962986010"
+            },
+
+            new Contato
+            {
+                Nome = "Anfonso Duarte",
+                Numero = "+351962986010"
+            },
+
+            new Contato
+            {
+                Nome = "Quaresma Santos",
+                Numero = "+351962986010"
+            },
+
+            new Contato
+            {
+                Nome = "Cristiano Ronaldo",
+                Numero = "+351962986010"
             }
 
         };
-        #endregion
+
     }
 }

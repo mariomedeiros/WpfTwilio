@@ -6,17 +6,17 @@ using System.Text;
 namespace WpfTwilio.Model
 {
     /// <summary>
-    /// Contem os dados de um contato
+    /// Contem os dados de uma entrade de log
     /// </summary>
     public class Log
     {
         /// <summary>
-        /// Faz o Set ou Get do Nome do Contato
+        /// Faz o Set ou Get da Data/Hora
         /// </summary>
         public DateTime DataHora { get; set; }
 
         /// <summary>
-        /// Faz o Set ou Get do Numero do Contato
+        /// Faz o Set ou Get da mensagem
         /// </summary>
         public string Msg { get; set; }
 

@@ -33,37 +33,34 @@ namespace WpfTwilio.Controller
         #endregion
 
         /// <summary>
-        /// Default constructor
+        /// Construtor
         /// </summary>
         public ContatosListaController()
         {
-            //Registar a procura por nome e obeter todos os contatos
+            //Registar a a lista de Mensages que este Controlador poderá processer
             Mediator.Register(this, new[]
                 {
-                    Messages.SearchByNome,
                     Messages.GetAllContatos
                 });
 
-            //Register to the SelectedIndex Routed event
-            EventManager.RegisterClassHandler(typeof(Control), ListView.SelectionChangedEvent,
-                (SelectionChangedEventHandler)SelectionChanged);
+            //Register quando o ListView é selecionada para depois colocar esses dados na view de enviar mensagens.
+            EventManager.RegisterClassHandler(typeof(Control), ListView.SelectionChangedEvent, (SelectionChangedEventHandler)SelectionChanged);
 
             //Obter toda a lista de contatos por defeito
             GetAllContatos();
         }
 
-        #region Event Handler
+
         //event handler for the selection changed
         void SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Notify that the selected item has changed
-
+            //Quando o contato é selecionado, a mensagem do tipo SelectContato é enviada para as vistas que estão à escuta
             if (((Control)sender).Name == "ListViewContatos"){
                 if (e.AddedItems != null && e.AddedItems.Count > 0)
                     Mediator.NotifyColleagues(Messages.SelectContato, e.AddedItems[0]);
             }
         }
-        #endregion
+
 
         /// <summary>
         /// Notification from the Mediator
@@ -74,9 +71,6 @@ namespace WpfTwilio.Controller
         {
             switch (message)
             {
-                case Messages.SearchByNome:
-                    ApplySearchByNome(args.ToString());
-                    break;
 
                 case Messages.GetAllContatos:
                     GetAllContatos();
@@ -84,17 +78,10 @@ namespace WpfTwilio.Controller
             }
         }
 
-        /// <summary>
-        /// Applicar a procura do contato por nome
-        /// </summary>
-        /// <param name="contatoName">O Nome do contato a procurar</param>
-        public void ApplySearchByNome(string contatoName)
-        {
-            ContatosLista = ContatosDataService.GetContatosByNome(contatoName);
-        }
+
 
         /// <summary>
-        /// Obter todos os produtos
+        /// Obter todos os contatos
         /// </summary>
         public void GetAllContatos()
         {

@@ -41,8 +41,7 @@ namespace WpfTwilio.Controller
             //register to the mediator for the SelectProduct message
             Mediator.Register(this, new[]
             {
-                Messages.SelectContato,
-                Messages.LimparEnvio
+                Messages.SelectContato
             });
 
             //////////////////////////////////////

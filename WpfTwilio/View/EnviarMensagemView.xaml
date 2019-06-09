@@ -5,11 +5,15 @@
     <Border BorderBrush="Silver" BorderThickness="1" 
             CornerRadius="5" Margin="5" Padding="5">
         <WrapPanel VerticalAlignment="Center">
-            <TextBox Text="{Binding CurrentContato.Nome}" MinWidth="50" Name="nome" Margin="10,0,10,0" Width="114"/>
-            <TextBox Text="{Binding CurrentContato.Numero}" MinWidth="50" Name="numero" Margin="10,0,10,0" Width="114"/>
-            <TextBox Text="{Binding CurrentContato.Texto}"  MinWidth="100" Name="mensagem" Margin="10,0,10,0" Width="197"/>
+            <Label Content="Nome"/>
+            <TextBox Text="{Binding CurrentContato.Nome}" MinWidth="50" Name="nome" Margin="10,0,10,0" Width="114" IsEnabled="False"/>
+            <Label Content="Numero"/>
+            <TextBox Text="{Binding CurrentContato.Numero}" MinWidth="50" Name="numero" Margin="10,0,10,0" Width="114" IsEnabled="False"/>
+            <Label Content="Mensagem"/>
+            <TextBox Text="{Binding CurrentContato.Texto}"  MinWidth="100" Name="mensagem" Margin="10,0,10,0" Width="314" />
             <Button Content="Enviar" Command="local:Commands.EnviarMensagem" 
                 CommandParameter="{Binding ElementName=mensagem, Path=Text}" Margin="10,0,10,0" Width="53" />
+            
         </WrapPanel>
     </Border>
 </UserControl>

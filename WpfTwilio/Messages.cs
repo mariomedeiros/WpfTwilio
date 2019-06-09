@@ -13,26 +13,17 @@ namespace WpfTwilio
         /// <summary>
         /// Notificar que todos os produtos devem ser retornados
         /// </summary>
-        public const string GetAllContatos = "getAll";
-
-        /// <summary>
-        /// Notificar que a procura deve ser feita pelo Nome
-        /// </summary>
-        public const string SearchByNome = "searchByNome";
+        public const string GetAllContatos = "getAllContatos";
 
         /// <summary>
         /// Mensagem para notificar que o contato foi selecionado
         /// </summary>
         public const string SelectContato = "selectContato";
 
-
-        public const string LimparEnvio = "limparEnvio";
-
         /// <summary>
         /// Mensagem para notificar para enviar uma mensagem
         /// </summary>
         public const string EnviarMensagem = "enviarMensagem";
-
 
         /// <summary>
         /// Mensagem para notificar para enviar uma mensagem
