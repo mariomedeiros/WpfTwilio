@@ -19,9 +19,9 @@ namespace WpfTwilio.View
     /// <summary>
     /// Interaction logic for MensagensView.xaml
     /// </summary>
-    public partial class LogView : UserControl
+    public partial class LogsView : UserControl
     {
-        public LogView()
+        public LogsView()
         {
             Controller = new LogController();
             DataContext = Controller;

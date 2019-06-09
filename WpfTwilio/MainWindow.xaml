@@ -34,7 +34,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <views:LogView  HorizontalAlignment="Right" Width="1032"/>
+                <views:LogsView  HorizontalAlignment="Right" Width="1032"/>
             </Grid>
         </Grid>
     </DockPanel>

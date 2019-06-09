@@ -59,7 +59,7 @@ namespace WpfTwilio.Controller
         public void Add(string msg)
         {
             //Adicionar e atualizar os dados locais com os dados dos logs
-            LogsLista = LogDataService.Add(msg);
+            LogsLista = LogsDataService.Add(msg);
         }
 
 
@@ -68,7 +68,7 @@ namespace WpfTwilio.Controller
         /// </summary>
         public void GetAllLogs()
         {
-            LogsLista = LogDataService.GetAllLogs();
+            LogsLista = LogsDataService.GetAllLogs();
         }
     }
 }

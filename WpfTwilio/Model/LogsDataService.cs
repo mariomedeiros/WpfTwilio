@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace WpfTwilio.Model
 {
-    class LogDataService
+    class LogsDataService
     {
         static List<Log> logs = new List<Log> {};
 

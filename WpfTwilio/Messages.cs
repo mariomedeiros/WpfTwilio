@@ -11,7 +11,7 @@ namespace WpfTwilio
     public static class Messages
     {
         /// <summary>
-        /// Notificar que todos os produtos devem ser retornados
+        /// Notificar que todos os contatos devem ser retornados
         /// </summary>
         public const string GetAllContatos = "getAllContatos";
 
@@ -40,8 +40,10 @@ namespace WpfTwilio
         /// </summary>
         public const string GetEstadoMensagem = "getEstadoMensagem";
 
+        /// <summary>
+        /// Mensagem para notificar para adicionar logs
+        /// </summary>
         public const string LogAdd = "logAdd";
-
     }
 }
 
